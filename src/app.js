@@ -1,14 +1,24 @@
 import Vue from "vue";
-import List from './components/List.vue';
+
+window.axios = require('axios');
+
 
 new Vue({
   el: "#app",
 
   components: {
-    List,
+    //
+  },
+
+  mounted: function() {
+
+    axios.get('https://jsonplaceholder.typicode.com/posts')
+        .then(response => this.posts = response.data)
+        .catch(error => this.posts = [{ title: 'No posts found'}])
+        .then(() => console.log('Data loading completed!'));
   },
 
   data: {
-    //
+    posts: null,
   },
 });
